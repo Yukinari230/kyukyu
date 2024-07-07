@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<div id="myDiv"></div>		
+<script>
+		
+n = 40;
+r=100;
+
+t=0;
+dt=0.05;
+
+function loop(){
+
+trace=[]
+
+m=7;
+for(j=0;j<m;j++){
+
+var x = [];
+var y = [];
+var z = [];
+var c = [];
+
+for(i=0;i<n+1;i++){　　
+　　u=(i/n-0.5)*Math.PI;
+rr=r*Math.cos(u);
+v=j/m*Math.PI*2+2*Math.sin(2*u);
+     x.push(rr*Math.cos(v+t));
+     y.push(rr*Math.sin(v+t));
+　　　z.push(r*Math.sin(u))
+     c.push(30*Math.sin(i/n*Math.PI))  
+}
+
+tra={
+ type: 'scatter3d',
+ mode: 'markers',
+ x: x,
+ y: y,
+ z: z,
+ marker: {size: c,}
+
+}
+
+trace.push(tra);
+}
+
+Plotly.newPlot('myDiv',trace,{width:900,height:1000});
+
+requestAnimationFrame(loop);
+t=t+dt;
+}
+loop();
+			
+</script>
+
+
+
+</body>
+
+
+
+</html>０
