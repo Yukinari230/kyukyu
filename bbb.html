@@ -1,0 +1,86 @@
+<html>
+
+
+
+<head>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<div id="myDiv"></div>
+		
+<script>
+		
+n=20;
+t=0;dt=0.05;
+function loop(){
+
+traces=[];
+m=20;
+for(j=-m;j<m+1;j++){
+
+var x = [];
+var y = [];
+var z = [];
+var c = [];
+
+rrr=0.5
+
+
+for(i=-n;i<n+1;i++){
+rr=rrr+2*(0.6+4*(t % 1));
+
+v=i/n+0.01;
+
+u=j/m*3.14;
+r=Math.sqrt(1-v*v);
+     x.push(rr*(v));
+     y.push(rr*r*Math.cos(u+t));
+     z.push(rr*r*Math.sin(u+t));
+     c.push(j)
+ }
+
+
+trace={ type: 'scatter3d',
+mode: 'markers',x: x,y: y,z: z,opacity: 0.7,
+ marker: {size: 2,color: j,}};
+traces.push(trace);
+
+trace={type:'scatter3d',
+mode:'lines',
+x:[4,-4,0,0,0,0],
+y:[0,0,4,-4,0,0],
+z:[0,0,0,0,4,-4],
+line:{width:12}}
+traces.push(trace);
+}
+
+
+
+
+var layout = {  width:  800,  height: 900,
+  xaxis: { autorange: false, range:[-10,10]},
+  yaxis: { autorange: false, range:[-10,10]},
+  zaxis: { autorange: false, range:[-10,10]}
+}
+
+Plotly.newPlot('myDiv', traces,layout);
+t=t+dt;
+requestAnimationFrame(loop);
+}
+loop();
+
+
+			
+</script>
+
+
+</div>
+</body>
+
+
+
+
+
+
+</html>
